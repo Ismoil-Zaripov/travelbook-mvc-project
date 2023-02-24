@@ -45,4 +45,27 @@ public class TravelService {
                 .map(this::mapToResponse)
                 .toList();
     }
+
+    public void delete(Integer id) {
+        travelRepository.deleteById(id);
+    }
+
+    public TravelResponse getById(Integer id) {
+        var travel = travelRepository.findById(id).get();
+        return mapToResponse(travel);
+    }
+
+    public boolean update(Integer id, TravelResponse request) {
+        var optional = travelRepository.findById(id);
+        if (optional.isEmpty()) return false;
+
+        var travel = optional.get();
+
+        travel.setTitle(request.getTitle());
+        travel.setDescription(request.getDescription());
+        travel.setPhotoUrl(request.getPhotoUrl());
+
+        travelRepository.save(travel);
+        return true;
+    }
 }
