@@ -51,6 +51,7 @@ public class TravelController {
         }
         List<TravelResponse> travels = travelService.search(query);
         model.addAttribute("travels", travels);
+        model.addAttribute("query", "");
         return "index";
     }
 
@@ -88,5 +89,13 @@ public class TravelController {
         boolean hasUpdated = travelService.update(id,request);
         if (!hasUpdated) return "travel-update";
         return "redirect:/travel/";
+    }
+
+    @GetMapping("/list")
+    public String getAllTravels(Model model){
+        List<TravelResponse> travels = travelService.getAll();
+        model.addAttribute("travels", travels);
+        model.addAttribute("query", "");
+        return "index";
     }
 }
