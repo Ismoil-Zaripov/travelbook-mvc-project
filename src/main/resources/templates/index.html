@@ -25,7 +25,6 @@
         <div class="d-flex align-items-center justify-content-between">
             <a th:href="@{/travel/add-page}" class=" fs-5 text-light nav-link">Add travel</a>
             <a th:href="@{/travel/list}" class=" fs-5 text-light nav-link px-4">All travels</a>
-            <a th:href="@{/travel/search}" class=" fs-5 text-light nav-link">Search</a>
         </div>
     </div>
 </nav>
@@ -49,9 +48,9 @@
                     </div>
                     <p class=" fs-4" th:text="${travel.getDescription()}">jdhasjhd</p>
                     <div class="card-footer d-flex mt-5 align-items-center justify-content-around">
-                        <a th:href="@{/travel/{travelId}/update(travelId=${travel.getId()})}"
+                        <a th:href="@{/travel/update/{travelId}(travelId=${travel.getId()})}"
                            class="shadow btn btn-outline-primary">Update</a>
-                        <a th:href="@{/travel/{travelId}/delete(travelId=${travel.getId()})}"
+                        <a th:href="@{/travel/delete/{travelId}(travelId=${travel.getId()})}"
                            class="shadow btn btn-outline-danger">Delete</a>
                     </div>
                 </div>
