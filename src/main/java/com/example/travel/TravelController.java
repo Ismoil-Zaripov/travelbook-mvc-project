@@ -42,4 +42,17 @@ public class TravelController {
         travelService.save(request);
         return "index";
     }
+
+    @GetMapping("/search")
+    public String search(
+            @RequestParam("query") String query,
+            Model model
+    ){
+        if (query.isEmpty()) {
+            return "redirect:/travel/";
+        }
+        List<TravelResponse> travels = travelService.search(query);
+        model.addAttribute("travels", travels);
+        return "index";
+    }
 }
