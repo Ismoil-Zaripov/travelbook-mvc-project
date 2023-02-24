@@ -12,8 +12,16 @@
 <body>
 <!-- Navbar -->
 <nav class="container-fluid bg-primary">
-    <div class="container d-flex py-2 align-items-center justify-content-between">
+    <div class="container d-flex py-3 align-items-center justify-content-between">
         <a th:href="@{/travel/}" class="fs-3 text-light nav-link">Travel book</a>
+        <form class="d-flex col-4" role="search" th:action="@{/travel/search}">
+            <input
+                    class="form-control m-0"
+                    type="search"
+                    placeholder="Search"
+                    name="query"
+                    aria-label="Search">
+        </form>
         <div class="d-flex align-items-center justify-content-between">
             <a th:href="@{/travel/add-page}" class=" fs-5 text-light nav-link">Add travel</a>
             <a th:href="@{/travel/list}" class=" fs-5 text-light nav-link px-4">All travels</a>
@@ -31,20 +39,20 @@
 
 
 
-        <div class="col-8 offset-2 shadow my-5 p-0" th:each="travel : ${travels}">
+        <div class="col-6 offset-3 shadow my-5 p-0" th:each="travel : ${travels}">
             <div class="card">
                 <img class="card-img-top py-0" th:src="${travel.getPhotoUrl()}" alt="Card image cap">
                 <div class="card-body">
                     <div class="d-flex py-1 align-items-center justify-content-around">
                         <h5 class="card-title" th:text="${travel.getTitle()}"></h5>
-                        <span class="badge badge-primary" th:text="${travel.getCreatedDate().toLocalDate()}"></span>
+                        <p class="text-primary" th:text="${travel.getCreatedDate().toLocalDate()}"></p>
                     </div>
-                    <p class="card-text" th:text="${travel.getDescription()}"></p>
-                    <div class="d-flex py-1 align-items-center justify-content-around">
+                    <p class=" fs-4" th:text="${travel.getDescription()}">jdhasjhd</p>
+                    <div class="card-footer d-flex mt-5 align-items-center justify-content-around">
                         <a th:href="@{/travel/{travelId}/update(travelId=${travel.getId()})}"
-                           class="col-2 fw-bold fs-5 btn btn-outline-primary">Update</a>
+                           class="shadow btn btn-outline-primary">Update</a>
                         <a th:href="@{/travel/{travelId}/delete(travelId=${travel.getId()})}"
-                           class="col-2 fw-bold fs-5 btn btn-outline-danger">Delete</a>
+                           class="shadow btn btn-outline-danger">Delete</a>
                     </div>
                 </div>
             </div>
