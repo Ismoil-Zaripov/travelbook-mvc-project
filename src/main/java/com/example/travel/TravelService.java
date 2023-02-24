@@ -38,4 +38,11 @@ public class TravelService {
 
         travelRepository.save(travel);
     }
+
+    public List<TravelResponse> search(String query) {
+        return travelRepository.searchByTitle(query)
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
 }
