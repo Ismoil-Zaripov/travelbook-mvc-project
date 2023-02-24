@@ -3,6 +3,7 @@ package com.example.travel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -24,6 +25,15 @@ public class TravelService {
                 .description(e.getDescription())
                 .photoUrl(e.getPhotoUrl())
                 .createdDate(e.getCreatedDate())
+                .build();
+    }
+
+    public void save(TravelRequest request) {
+        TravelEntity.builder()
+                .title(request.getTitle())
+                .photoUrl(request.getPhotoUrl())
+                .description(request.getDescription())
+                .createdDate(LocalDateTime.now())
                 .build();
     }
 }
