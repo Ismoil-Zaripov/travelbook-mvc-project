@@ -10,4 +10,7 @@ import java.util.List;
 public interface TravelRepository extends JpaRepository<TravelEntity, Integer> {
     @Query("FROM TravelEntity AS t WHERE t.title LIKE CONCAT('%',:title,'%') ORDER BY t.createdDate DESC ")
     List<TravelEntity> searchByTitle(String title); // HQL QUERY
+
+    @Query("FROM TravelEntity AS t ORDER BY t.createdDate DESC LIMIT 5")
+    List<TravelEntity> findByTopFiveTravel();
 }
