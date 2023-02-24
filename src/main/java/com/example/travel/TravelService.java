@@ -68,4 +68,11 @@ public class TravelService {
         travelRepository.save(travel);
         return true;
     }
+
+    public List<TravelResponse> getAll() {
+        return travelRepository.getAll()
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
 }
