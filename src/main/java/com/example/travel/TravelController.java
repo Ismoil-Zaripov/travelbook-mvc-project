@@ -5,10 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +20,7 @@ public class TravelController {
 
         List<TravelResponse> travels = travelService.findByTopFiveTravel();
         model.addAttribute("travels", travels);
+        model.addAttribute("query", "");
         return "index";
     }
 
@@ -40,7 +38,7 @@ public class TravelController {
     ){
         if (result.hasErrors()) return "travel-add";
         travelService.save(request);
-        return "index";
+        return "redirect:/travel/";
     }
 
     @GetMapping("/search")
@@ -56,39 +54,39 @@ public class TravelController {
         return "index";
     }
 
-    @GetMapping("/delete")
+    @GetMapping("/delete/{id}")
     public String deleteTravel(
-            @RequestParam("id") Integer id
+            @PathVariable("id") Integer id
     ){
         travelService.delete(id);
         return "redirect:/travel/";
     }
 
-    @GetMapping("/update")
+    @GetMapping("/update/{id}")
     public String update(
-            @RequestParam("id") Integer id,
+            @PathVariable("id") Integer id,
             Model model
     ){
         TravelResponse response = travelService.getById(id);
         if (response == null) {
             return "redirect:/travel/";
         }
+        response.setId(id);
 
-        model.addAttribute("travel");
-        model.addAttribute("newTravel", new TravelRequest());
-        return "update-page";
+        model.addAttribute("newTravel", response);
+        return "travel-update";
     }
 
-    @PostMapping("/update")
+    @PostMapping("/update/{id}")
     public String updateTravel(
-            @RequestParam("id") Integer id,
-            @Valid @ModelAttribute("newTravel") TravelRequest request,
+            @PathVariable Integer id,
+            @Valid @ModelAttribute("newTravel") TravelResponse request,
             BindingResult result
     ){
-        if (result.hasErrors()) {
-            return "update-page";
-        }
+        if (result.hasErrors()) return "travel-update";
 
-        boolean res = travelService.update(id,request);
+        boolean hasUpdated = travelService.update(id,request);
+        if (!hasUpdated) return "travel-update";
+        return "redirect:/travel/";
     }
 }
