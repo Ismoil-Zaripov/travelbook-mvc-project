@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Travel book</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="container-fluid bg-primary">
+    <div class="container d-flex py-2 align-items-center justify-content-between">
+        <a th:href="@{/travel/}" class="fs-3 text-light nav-link">Travel book</a>
+        <div class="d-flex align-items-center justify-content-between">
+            <a th:href="@{/travel/add}" class=" fs-5 text-light nav-link">Add travel</a>
+            <a th:href="@{/travel/list}" class=" fs-5 text-light nav-link px-4">All travels</a>
+            <a th:href="@{/travel/search}" class=" fs-5 text-light nav-link">Search</a>
+        </div>
+    </div>
+</nav>
+<!-- Navbar end -->
+
+<!-- Main -->
+<main class="container-fluid py-5">
+    <div class="row">
+
+        <!-- card -->
+
+
+
+        <div class="col-8 offset-2 shadow my-5 p-0" th:each="travel : ${travels}">
+            <div class="card">
+                <img class="card-img-top py-0" th:src="${travel.getPhotoUrl()}" alt="Card image cap">
+                <div class="card-body">
+                    <div class="d-flex py-1 align-items-center justify-content-around">
+                        <h5 class="card-title" th:text="${travel.getTitle()}"></h5>
+                        <span class="badge badge-primary" th:text="${travel.getCreatedDate().toLocalDate()}"></span>
+                    </div>
+                    <p class="card-text" th:text="${travel.getDescription()}"></p>
+                    <div class="d-flex py-1 align-items-center justify-content-around">
+                        <a th:href="@{/travel/{travelId}/update(travelId=${travel.getId()})}"
+                           class="col-2 fw-bold fs-5 btn btn-outline-primary">Update</a>
+                        <a th:href="@{/travel/{travelId}/delete(travelId=${travel.getId()})}"
+                           class="col-2 fw-bold fs-5 btn btn-outline-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- card end -->
+
+    </div>
+</main>
+<!-- Main end -->
+
+
+</body>
+</html>
