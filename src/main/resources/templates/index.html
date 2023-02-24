@@ -11,7 +11,7 @@
 </head>
 <body>
 <!-- Navbar -->
-<nav class="container-fluid bg-primary">
+<nav class="container-fluid bg-primary sticky-top">
     <div class="container d-flex py-3 align-items-center justify-content-between">
         <a th:href="@{/travel/}" class="fs-3 text-light nav-link">Travel book</a>
         <form class="d-flex col-4" role="search" th:action="@{/travel/search}">
@@ -37,7 +37,6 @@
         <!-- card -->
 
 
-
         <div class="col-6 offset-3 shadow my-5 p-0" th:each="travel : ${travels}">
             <div class="card">
                 <img class="card-img-top py-0" th:src="${travel.getPhotoUrl()}" alt="Card image cap">
@@ -52,6 +51,11 @@
                            class="shadow btn btn-outline-primary">Update</a>
                         <a th:href="@{/travel/delete/{travelId}(travelId=${travel.getId()})}"
                            class="shadow btn btn-outline-danger">Delete</a>
+                        <div class="d-flex justify-content-end align-items-end">
+                            <p class="text-muted" th:text="${travel.getCreatedDate().getHour()}"></p>
+                            <p class="text-muted">:</p>
+                            <p class="text-muted" th:text="${travel.getCreatedDate().getMinute()}"></p>
+                        </div>
                     </div>
                 </div>
             </div>
