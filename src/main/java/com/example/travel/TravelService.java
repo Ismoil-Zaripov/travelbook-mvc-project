@@ -29,11 +29,13 @@ public class TravelService {
     }
 
     public void save(TravelRequest request) {
-        TravelEntity.builder()
+        var travel = TravelEntity.builder()
                 .title(request.getTitle())
                 .photoUrl(request.getPhotoUrl())
                 .description(request.getDescription())
                 .createdDate(LocalDateTime.now())
                 .build();
+
+        travelRepository.save(travel);
     }
 }
