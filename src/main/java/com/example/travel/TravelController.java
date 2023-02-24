@@ -55,4 +55,40 @@ public class TravelController {
         model.addAttribute("travels", travels);
         return "index";
     }
+
+    @GetMapping("/delete")
+    public String deleteTravel(
+            @RequestParam("id") Integer id
+    ){
+        travelService.delete(id);
+        return "redirect:/travel/";
+    }
+
+    @GetMapping("/update")
+    public String update(
+            @RequestParam("id") Integer id,
+            Model model
+    ){
+        TravelResponse response = travelService.getById(id);
+        if (response == null) {
+            return "redirect:/travel/";
+        }
+
+        model.addAttribute("travel");
+        model.addAttribute("newTravel", new TravelRequest());
+        return "update-page";
+    }
+
+    @PostMapping("/update")
+    public String updateTravel(
+            @RequestParam("id") Integer id,
+            @Valid @ModelAttribute("newTravel") TravelRequest request,
+            BindingResult result
+    ){
+        if (result.hasErrors()) {
+            return "update-page";
+        }
+
+        boolean res = travelService.update(id,request);
+    }
 }
