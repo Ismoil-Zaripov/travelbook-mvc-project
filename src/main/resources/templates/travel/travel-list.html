@@ -1,10 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-$END$
+
+<!-- Navbar -->
+<th:block th:include="fragments/navbar.html"></th:block>
+<!-- Navbar end -->
+
+<main>
+    <p class="display-4 my-4 text-center">Travels list</p>
+    <hr />
+    <div class="container">
+        <div class="row">
+
+            <div th:each="travel : ${travels}"
+                 class="col-8 offset-2 card my-2 shadow p-0">
+
+                <div class="card-header p-0">
+                    <img th:src="${travel.photoUrl}" class="img-fluid m-0" alt="travel not found"/>
+                </div>
+
+                <div class="card-body">
+                    <p class="fs-2 fw-bolder" th:text="${travel.title}"></p>
+                    <p class="fs-4" th:text="${travel.description}"></p>
+                </div>
+
+                <div class="card-footer">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <a class="btn btn-primary" th:href="@{/travel/update/{id}(id=${travel.id})}">Update</a>
+                        <a class="btn btn-danger" th:href="@{/travel/delete/{id}(id=${travel.id})}">Delete</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</main>
+
 </body>
 </html>

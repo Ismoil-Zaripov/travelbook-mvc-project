@@ -3,8 +3,8 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-primary"> <!-- Orqa fonni ko'k qilish -->
-    <a class="navbar-brand" th:href="@{/}" style="color: white; font-size: 24px;">Travel book</a> <!-- Yozuv shrifti va rangi o'zgartirildi -->
+<nav class="navbar navbar-expand-lg navbar-light bg-primary sticky-top">
+    <a class="navbar-brand" th:href="@{/}" style="color: white; font-size: 24px;">Travel book</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon btn btn-light"></span>
@@ -22,8 +22,8 @@
                 <a class="text-white nav-link" th:href="@{/travel/list}">All travels</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input th:field="${searchQuery}"
+        <form th:action="@{/travel}" method="get" class="form-inline my-2 my-lg-0">
+            <input name="search"
                     class="form-control mr-sm-2"
                     type="search" placeholder="Search"
                     aria-label="Search">
